@@ -1,10 +1,15 @@
+# Help file
 HELP.md
+
+# Ignore Maven target directory except specific nested ones
 target/
-!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
+# Keep Maven Wrapper JAR tracked
+!.mvn/wrapper/maven-wrapper.jar
+
+# Ignore STS IDE files
 .apt_generated
 .classpath
 .factorypath
@@ -13,21 +18,27 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
+# Ignore IntelliJ IDEA files
 .idea
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
+# Ignore NetBeans files and build artifacts
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
+
+# Ignore Gradle build directory except specific nested ones
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
+# Ignore VS Code settings
 .vscode/
+
+# Optional: OS-specific files
+.DS_Store
+Thumbs.db
