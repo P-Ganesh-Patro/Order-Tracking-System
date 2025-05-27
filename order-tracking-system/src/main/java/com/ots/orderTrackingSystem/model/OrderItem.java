@@ -1,0 +1,32 @@
+package com.ots.orderTrackingSystem.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class OrderItem {
+
+    @EmbeddedId
+//    @EqualsAndHashCode.Include
+    private OrderItemId id;
+
+    @ManyToOne
+    @MapsId("orderId")
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @ManyToOne
+    @MapsId("productId")
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    private int quantity;
+    private double price;
+}
