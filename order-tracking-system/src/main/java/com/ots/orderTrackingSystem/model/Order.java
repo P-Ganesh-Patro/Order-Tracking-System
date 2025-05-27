@@ -1,6 +1,8 @@
 package com.ots.orderTrackingSystem.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -11,6 +13,8 @@ import java.util.List;
 @Component
 @Entity
 @Table(name = "orders")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
 
     @Id
