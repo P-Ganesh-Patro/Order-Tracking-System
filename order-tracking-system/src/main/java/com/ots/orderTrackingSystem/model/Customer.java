@@ -2,7 +2,9 @@ package com.ots.orderTrackingSystem.model;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,6 +13,8 @@ import java.util.List;
 @Component
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
 
     @Id

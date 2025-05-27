@@ -2,6 +2,7 @@ package com.ots.orderTrackingSystem.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.Objects;
 
 @Embeddable
 @Data
+
 public class OrderItemId implements Serializable {
 
     @Column(name = "product_id")
