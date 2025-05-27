@@ -38,14 +38,5 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-//    public void setCustomer(Customer customer) {
-//        if (customer != null) {
-//            customer.getOrders().remove(this);
-//        }
-//        this.customer = customer;
-//        if ((customer != null) && (!customer.getOrders().contains(this))) {
-//            customer.getOrders().add(this);
-//        }
-//    }
 
 }
