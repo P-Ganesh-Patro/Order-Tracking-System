@@ -1,6 +1,8 @@
 package com.ots.orderTrackingSystem.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -11,6 +13,8 @@ import java.util.List;
 @Component
 @Entity
 @Table(name = "orders")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
 
     @Id
@@ -34,14 +38,5 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-//    public void setCustomer(Customer customer) {
-//        if (customer != null) {
-//            customer.getOrders().remove(this);
-//        }
-//        this.customer = customer;
-//        if ((customer != null) && (!customer.getOrders().contains(this))) {
-//            customer.getOrders().add(this);
-//        }
-//    }
 
 }

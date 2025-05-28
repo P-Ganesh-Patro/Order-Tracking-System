@@ -10,11 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class OrderItem {
 
     @EmbeddedId
-//    @EqualsAndHashCode.Include
     private OrderItemId id;
 
     @ManyToOne
