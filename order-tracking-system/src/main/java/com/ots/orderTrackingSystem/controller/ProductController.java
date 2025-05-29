@@ -35,5 +35,17 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<?> getProductsByName(@RequestParam String name) {
+        try {
+            List<ProductDTO> productDTOS = productService.getAllProductsByName(name);
+            if (productDTOS.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product Name Not Found....");
+            }
+            return ResponseEntity.ok(productDTOS);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 }
