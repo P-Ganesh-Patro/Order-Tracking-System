@@ -25,4 +25,7 @@ public class ProductService {
     }
 
 
+    public List<ProductDTO> getAllProductsByName(String name) {
+        return productRepo.findByNameContainingIgnoreCase(name);
+    }
 }
