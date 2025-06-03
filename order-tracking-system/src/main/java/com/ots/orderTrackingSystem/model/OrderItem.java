@@ -1,10 +1,10 @@
 package com.ots.orderTrackingSystem.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -25,6 +25,7 @@ public class OrderItem {
     @ManyToOne
     @MapsId("productId")
     @JoinColumn(name = "product_id")
+    @JsonManagedReference
     private Product product;
 
     private int quantity;

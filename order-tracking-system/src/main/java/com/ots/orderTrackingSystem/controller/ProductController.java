@@ -1,6 +1,7 @@
 package com.ots.orderTrackingSystem.controller;
 
 import com.ots.orderTrackingSystem.dto.ProductDTO;
+import com.ots.orderTrackingSystem.exception.OrderNotFoundException;
 import com.ots.orderTrackingSystem.model.Product;
 import com.ots.orderTrackingSystem.service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -40,7 +41,7 @@ public class ProductController {
         try {
             List<ProductDTO> productDTOS = productService.getAllProductsByName(name);
             if (productDTOS.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product Name Not Found....");
+                throw new OrderNotFoundException("Product Not found:-  " + name);
             }
             return ResponseEntity.ok(productDTOS);
         } catch (Exception e) {

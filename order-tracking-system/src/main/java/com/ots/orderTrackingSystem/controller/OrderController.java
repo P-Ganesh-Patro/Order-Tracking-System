@@ -1,25 +1,21 @@
 package com.ots.orderTrackingSystem.controller;
 
-import com.ots.orderTrackingSystem.dto.ListOfOrderItemsForTheGivenProduct;
-import com.ots.orderTrackingSystem.dto.ListOfOrdersWithGivenStatus;
-import com.ots.orderTrackingSystem.dto.OrderDTO;
-import com.ots.orderTrackingSystem.dto.OrderItemGivenOrder;
+import com.ots.orderTrackingSystem.dto.*;
+import com.ots.orderTrackingSystem.exception.OrderNotFoundException;
 import com.ots.orderTrackingSystem.model.Order;
 import com.ots.orderTrackingSystem.model.OrderStatus;
 import com.ots.orderTrackingSystem.service.OrderService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.batch.BatchTransactionManager;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/orders")
+@RequestMapping("/api/orders")
 public class OrderController {
     private final OrderService orderService;
 
@@ -73,7 +69,7 @@ public class OrderController {
     }
 
     @GetMapping("/orderId")
-    public ResponseEntity<List<OrderItemGivenOrder>> getOrderByGivenOrders(@RequestParam("orderId") int id) {
+    public ResponseEntity<List<OrderItemGivenOrder>> getOrderByGivenOrderId(@RequestParam("orderId") int id) {
         try {
             return ResponseEntity.ok(orderService.getAllOrdersGivenOrder(id));
         } catch (Exception e) {
@@ -85,17 +81,26 @@ public class OrderController {
 
     @GetMapping("/productName")
     public ResponseEntity<?> getOrderDetailsByProductName(@RequestParam("productName") String productName) {
-        try {
-            List<ListOfOrderItemsForTheGivenProduct> products = orderService.getProductDetailsByProductName(productName);
-            if (products.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product Name not Found... still not ordering " + productName);
-            }
-
-            return ResponseEntity.ok(products);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        List<ListOfOrderItemsForTheGivenProduct> products = orderService.getProductDetailsByProductName(productName);
+        if (products.isEmpty()) {
+            throw new OrderNotFoundException("Order not found");
         }
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/orderDetails")
+    public ResponseEntity<?> getOrderDetailsById(@RequestParam("orderId") Long orderId) {
+        List<AllDetailsOfGivenOrderId> allDetails = orderService.getAllDetailsOfAnOrderById(orderId);
+        if (allDetails.isEmpty()) {
+            throw new OrderNotFoundException("Order not found for the given orderId :-" + orderId + ".  No order has been placed yet.");
+        }
+        return ResponseEntity.ok(allDetails);
+    }
+
+    @PostMapping("/addOrders")
+    public Order createOrder(@Valid @RequestBody AddNewOrderByCustomerId createOrder) {
+        return orderService.createOrder(createOrder);
+
     }
 
 }

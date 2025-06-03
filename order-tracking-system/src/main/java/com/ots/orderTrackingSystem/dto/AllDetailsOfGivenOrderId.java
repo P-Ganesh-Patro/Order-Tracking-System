@@ -13,9 +13,7 @@ public interface AllDetailsOfGivenOrderId {
     int getProductId();
     String getProductName();
     double getPrice();
-
     int getQuantityOrdered();
-
     LocalDate getOrderDate();
     LocalDate getDeliveryDate();
 }

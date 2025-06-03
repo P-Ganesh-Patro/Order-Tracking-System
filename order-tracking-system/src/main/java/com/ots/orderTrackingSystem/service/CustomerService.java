@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -21,6 +22,11 @@ public class CustomerService {
 
     public List<CustomerDTO> getAllCustomers() {
         return customerRepo.getCustomers();
+    }
+
+    public Customer customerGetById(Long id) {
+        Optional<Customer> customerId = customerRepo.findById(id);
+        return customerId.orElse(null);
     }
 
 

@@ -1,15 +1,11 @@
 package com.ots.orderTrackingSystem.repository;
 
-import com.ots.orderTrackingSystem.dto.ListOfOrderItemsForTheGivenProduct;
-import com.ots.orderTrackingSystem.dto.ListOfOrdersWithGivenStatus;
-import com.ots.orderTrackingSystem.dto.OrderDTO;
-import com.ots.orderTrackingSystem.dto.OrderItemGivenOrder;
+import com.ots.orderTrackingSystem.dto.*;
 import com.ots.orderTrackingSystem.model.Order;
 import com.ots.orderTrackingSystem.model.OrderStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -28,15 +24,38 @@ public interface OrderRepo extends JpaRepository<Order, Long> {
 
     @Query("SELECT p.name AS productName, oi.quantity AS quantity, oi.price AS price FROM OrderItem oi JOIN oi.product p JOIN oi.order o WHERE o.id = :orderId")
     List<OrderItemGivenOrder> findByOrdersGivenOrder(@Param("orderId") int orderId);
+
     @Query("""
-    SELECT new com.ots.orderTrackingSystem.dto.ListOfOrderItemsForTheGivenProduct(
-        o.orderDate, oi.price, oi.quantity, c.name, p.name
-    )
-    FROM Order o
-    JOIN o.orderItems oi
-    JOIN o.customer c
-    JOIN oi.product p
-    WHERE p.name LIKE CONCAT('%', :productName, '%')
-""")
+                SELECT new com.ots.orderTrackingSystem.dto.ListOfOrderItemsForTheGivenProduct(
+                    o.orderDate, oi.price, oi.quantity, c.name, p.name
+                )
+                FROM Order o
+                JOIN o.orderItems oi
+                JOIN o.customer c
+                JOIN oi.product p
+                WHERE p.name LIKE CONCAT('%', :productName, '%')
+            """)
     List<ListOfOrderItemsForTheGivenProduct> findOrderByGivenProductName(@Param("productName") String productName);
+
+    @Query("""
+            SELECT 
+                o.id AS orderId,
+                c.id AS customerId,
+                c.name AS customerName,
+                c.email AS customerEmail,
+                c.mobileNumber AS customerMobile,
+                p.id AS productId,
+                p.name AS productName,
+                p.price AS price,
+                oi.quantity AS quantityOrdered,
+                o.orderDate AS orderDate,
+                o.deliveryDate AS deliveryDate
+            FROM Order o
+            JOIN o.customer c
+            JOIN o.orderItems oi
+            JOIN oi.product p
+            WHERE o.id = :orderId
+            """)
+    List<AllDetailsOfGivenOrderId> findOrderDetailsByOrderId(@Param("orderId") Long orderId);
+
 }
