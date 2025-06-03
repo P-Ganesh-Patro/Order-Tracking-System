@@ -90,15 +90,11 @@ public class OrderController {
 
     @GetMapping("/orderDetails")
     public ResponseEntity<?> getOrderDetailsById(@RequestParam("orderId") Long orderId) {
-        try {
-            List<AllDetailsOfGivenOrderId> allDetails = orderService.getAllDetailsOfAnOrderById(orderId);
-            if (allDetails.isEmpty()) {
-                throw new OrderNotFoundException("Order not found for the given orderId :-" + orderId + ".  No order has been placed yet.");
-            }
-            return ResponseEntity.ok(allDetails);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        List<AllDetailsOfGivenOrderId> allDetails = orderService.getAllDetailsOfAnOrderById(orderId);
+        if (allDetails.isEmpty()) {
+            throw new OrderNotFoundException("Order not found for the given orderId :-" + orderId + ".  No order has been placed yet.");
         }
+        return ResponseEntity.ok(allDetails);
     }
 
     @PostMapping("/addOrders")

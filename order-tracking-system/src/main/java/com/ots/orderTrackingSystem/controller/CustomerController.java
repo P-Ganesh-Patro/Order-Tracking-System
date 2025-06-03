@@ -27,17 +27,13 @@ public class CustomerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-//
+
     @GetMapping("/{id}")
-    public ResponseEntity<?> createOrderByCustomerId(@PathVariable  Long id) {
+    public ResponseEntity<?> createOrderByCustomerId(@PathVariable Long id) {
         Customer customer = customerService.customerGetById(id);
         if (customer == null) {
             throw new OrderNotFoundException("Customer Id is not found");
         }
         return ResponseEntity.ok(customer);
     }
-
-
-
-
 }

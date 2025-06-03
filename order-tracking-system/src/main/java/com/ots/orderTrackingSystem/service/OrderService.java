@@ -68,14 +68,13 @@ public class OrderService {
     @Transactional
     public Order createOrder(AddNewOrderByCustomerId createOrder) {
         Customer customer = customerRepo.findById(createOrder.getCustomerId())
-                .orElseThrow(() -> new OrderNotFoundException("Customer not found"));
+                .orElseThrow(() -> new OrderNotFoundException("Customer Id not found"));
 
         Order newOrder = new Order();
         newOrder.setOrderDate(LocalDate.now());
         newOrder.setDeliveryDate(LocalDate.now().plusDays(5));
         newOrder.setOrderStatus(OrderStatus.NEW);
         newOrder.setCustomer(customer);
-
         Order savedOrder = orderRepo.save(newOrder);
 
         List<OrderItem> orderItems = new ArrayList<>();
