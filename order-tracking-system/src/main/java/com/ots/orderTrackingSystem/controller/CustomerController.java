@@ -5,6 +5,7 @@ import com.ots.orderTrackingSystem.exception.OrderNotFoundException;
 import com.ots.orderTrackingSystem.model.Customer;
 import com.ots.orderTrackingSystem.service.CustomerService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class CustomerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
+    
     @GetMapping("/{id}")
     public ResponseEntity<?> createOrderByCustomerId(@PathVariable Long id) {
         Customer customer = customerService.customerGetById(id);

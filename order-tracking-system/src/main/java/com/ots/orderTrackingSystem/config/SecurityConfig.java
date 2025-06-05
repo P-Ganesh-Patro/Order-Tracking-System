@@ -20,18 +20,14 @@ public class SecurityConfig {
                 .password("{noop}ganesh1234")
                 .roles("USER")
                 .build();
-
         return new InMemoryUserDetailsManager(user);
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().authenticated()
-                )
-                .httpBasic(Customizer.withDefaults());
-
+        http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth.anyRequest()
+                        .authenticated()).httpBasic(Customizer.withDefaults());
         return http.build();
     }
 }
