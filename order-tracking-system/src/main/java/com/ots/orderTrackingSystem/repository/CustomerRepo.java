@@ -12,7 +12,7 @@ public interface CustomerRepo extends JpaRepository<Customer, Long> {
 
     @Query("select c.id as id, c.name as name, c.email as email, c.mobileNumber as mobileNumber from Customer c")
      List<CustomerDTO> getCustomers();
-
+ 
 
 
 }

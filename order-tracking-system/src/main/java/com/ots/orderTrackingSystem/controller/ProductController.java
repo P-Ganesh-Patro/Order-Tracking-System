@@ -2,7 +2,6 @@ package com.ots.orderTrackingSystem.controller;
 
 import com.ots.orderTrackingSystem.dto.ProductDTO;
 import com.ots.orderTrackingSystem.exception.OrderNotFoundException;
-import com.ots.orderTrackingSystem.model.Product;
 import com.ots.orderTrackingSystem.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
@@ -23,7 +20,6 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
-
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getAllProductsByPagination(@RequestParam int page, @RequestParam int size) {
