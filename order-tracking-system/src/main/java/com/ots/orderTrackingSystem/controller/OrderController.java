@@ -19,14 +19,12 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
 
-
     @GetMapping("/customerId")
     public ResponseEntity<?> getAllOrderCustomerById(@RequestParam Long customerId) {
         try {
             List<OrderDTO> orderList = orderService.getAllOrdersByCustomerId(customerId);
             if (orderList.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer ID not found.");
-
             }
             return ResponseEntity.ok(orderList);
         } catch (Exception e) {

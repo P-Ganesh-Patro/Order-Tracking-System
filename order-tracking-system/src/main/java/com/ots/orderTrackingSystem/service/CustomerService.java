@@ -19,11 +19,9 @@ public class CustomerService {
     public CustomerService(CustomerRepo customerRepo) {
         this.customerRepo = customerRepo;
     }
-
     public List<CustomerDTO> getAllCustomers() {
         return customerRepo.getCustomers();
     }
-
     public Customer customerGetById(Long id) {
         Optional<Customer> customerId = customerRepo.findById(id);
         return customerId.orElse(null);

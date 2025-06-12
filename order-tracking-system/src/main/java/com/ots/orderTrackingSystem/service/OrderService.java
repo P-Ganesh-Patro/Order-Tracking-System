@@ -29,10 +29,7 @@ public class OrderService {
 
 
     public List<OrderDTO> getAllOrdersByCustomerId(Long id) {
-
         return orderRepo.getOrdersByCustomerId(id);
-
-
     }
 
     public Order saveProduct(Order order) {
@@ -76,25 +73,20 @@ public class OrderService {
         newOrder.setOrderStatus(OrderStatus.NEW);
         newOrder.setCustomer(customer);
         Order savedOrder = orderRepo.save(newOrder);
-
         List<OrderItem> orderItems = new ArrayList<>();
 
         for (AddNewOrderByCustomerId.ProductQuantity pq : createOrder.getProducts()) {
             Product product = productRepo.findById(pq.getProductId())
                     .orElseThrow(() -> new OrderNotFoundException("Product Id is not found"));
-
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(savedOrder);
             orderItem.setProduct(product);
             orderItem.setQuantity(pq.getQuantity());
             orderItem.setPrice((double) (product.getPrice() * pq.getQuantity()));
             orderItem.setId(new OrderItemId(product.getId(), savedOrder.getId()));
-
             orderItems.add(orderItem);
         }
-
         savedOrder.setOrderItems(orderItems);
-
         return orderRepo.save(savedOrder);
     }
 

@@ -2,7 +2,6 @@ package com.ots.orderTrackingSystem.dto;
 
 
 import com.ots.orderTrackingSystem.model.OrderStatus;
-
 import java.time.LocalDate;
 
 public interface ListOfOrdersWithGivenStatus {
