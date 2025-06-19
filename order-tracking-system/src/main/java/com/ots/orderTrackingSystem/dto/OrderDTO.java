@@ -7,6 +7,8 @@ import java.time.LocalDate;
 public interface OrderDTO {
     Long getId();
 
+    Long getCid();
+
     LocalDate getOrderDate();
 
     LocalDate getDeliveryDate();

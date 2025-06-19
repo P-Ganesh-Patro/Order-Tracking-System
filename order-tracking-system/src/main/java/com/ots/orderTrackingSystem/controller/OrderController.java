@@ -12,12 +12,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/orders")
 public class OrderController {
     private final OrderService orderService;
+
+
+    @GetMapping("/{oid}")
+    public ResponseEntity<Optional<Order>> getByorderId(@PathVariable Long oid) {
+        return orderService.getByOrderId(oid);
+
+    }
+
 
     @GetMapping("/customerId")
     public ResponseEntity<?> getAllOrderCustomerById(@RequestParam Long customerId) {

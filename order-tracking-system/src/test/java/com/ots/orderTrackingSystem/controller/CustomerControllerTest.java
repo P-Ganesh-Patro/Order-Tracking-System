@@ -46,12 +46,13 @@ public class CustomerControllerTest {
             }
         };
         Mockito.when(customerService.getAllCustomers()).thenReturn(List.of(customer));
-        ResponseEntity<List<CustomerDTO>> response = customerController.getAllCustomers();
-        assertEquals(200, response.getStatusCodeValue());
-        assertNotNull(response.getBody());
-        assertEquals(1, response.getBody().size());
-        assertEquals("Ganesh", response.getBody().get(0).getName());
+        ResponseEntity<List<CustomerDTO>> customerResponse = customerController.getAllCustomers();
+        assertEquals(200, customerResponse.getStatusCode());
+        assertNotNull(customerResponse.getBody());
+        assertEquals(1, customerResponse.getBody().size());
+        assertEquals("Ganesh", customerResponse.getBody().get(0).getName());
     }
+
 
     @Test
     void testGetCustomerById() {
@@ -64,6 +65,4 @@ public class CustomerControllerTest {
         assertTrue(response.getBody() instanceof Customer);
         assertEquals("Ganesh", ((Customer) response.getBody()).getName());
     }
-
-
 }

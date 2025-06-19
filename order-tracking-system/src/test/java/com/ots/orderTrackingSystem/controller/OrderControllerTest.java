@@ -12,9 +12,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,6 +35,10 @@ public class OrderControllerTest {
                 return 1L;
             }
 
+            public Long getCid() {
+                return 2L;
+            }
+
             public LocalDate getOrderDate() {
                 return LocalDate.now();
             }
@@ -47,7 +53,6 @@ public class OrderControllerTest {
         };
 
         Mockito.when(orderService.getAllOrdersByCustomerId(1L)).thenReturn(List.of(orderDTO));
-
         ResponseEntity<?> response = orderController.getAllOrderCustomerById(1L);
         assertEquals(200, response.getStatusCodeValue());
         assertFalse(((List<?>) response.getBody()).isEmpty());
@@ -195,6 +200,7 @@ public class OrderControllerTest {
             public String getCustomerEmail() {
                 return "chandu@gmail.com";
             }
+
             @Override
             public String getCustomerMobile() {
                 return "8763514998";

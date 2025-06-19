@@ -9,6 +9,7 @@ import com.ots.orderTrackingSystem.repository.OrderRepo;
 import com.ots.orderTrackingSystem.repository.ProductRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +32,11 @@ public class OrderService {
 
     public List<OrderDTO> getAllOrdersByCustomerId(Long id) {
         return orderRepo.getOrdersByCustomerId(id);
+    }
+
+    public ResponseEntity<Optional<Order>> getByOrderId(Long id) {
+        Optional<Order> orderDTO1 = orderRepo.findById(id);
+        return ResponseEntity.ok(orderDTO1);
     }
 
     public Order saveProduct(Order order) {

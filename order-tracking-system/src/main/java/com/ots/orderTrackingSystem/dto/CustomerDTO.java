@@ -1,6 +1,5 @@
 package com.ots.orderTrackingSystem.dto;
 
-
 public interface CustomerDTO {
     Long getId();
 

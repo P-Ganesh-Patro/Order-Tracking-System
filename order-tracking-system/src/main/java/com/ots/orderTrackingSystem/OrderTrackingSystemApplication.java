@@ -10,9 +10,7 @@ public class OrderTrackingSystemApplication {
         SpringApplication app = new SpringApplication(OrderTrackingSystemApplication.class);
 
 //        SpringApplication.run(OrderTrackingSystemApplication.class, args);
-        app.setBannerMode(Banner.Mode.OFF);
+//        app.setBannerMode(Banner.Mode.OFF);
         app.run(args);
-
-
     }
 }

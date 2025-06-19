@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface OrderRepo extends JpaRepository<Order, Long> {
-    @Query("SELECT o.id AS id, o.orderDate AS orderDate, o.deliveryDate AS deliveryDate, o.orderStatus AS orderStatus FROM Order o WHERE o.customer.id = :customerId")
+    @Query("SELECT o.id AS id, o.customer.id as cid, o.orderDate AS orderDate, o.deliveryDate AS deliveryDate, o.orderStatus AS orderStatus FROM Order o WHERE o.customer.id = :customerId")
     List<OrderDTO> getOrdersByCustomerId(@Param("customerId") Long id);
 
     @Query("SELECT o.id AS orderId, o.orderDate AS orderDate, c.name AS customerName, o.orderStatus AS orderStatus, o.deliveryDate AS deliveryDate FROM Order o JOIN o.customer c WHERE o.deliveryDate > :deliveryDate")
