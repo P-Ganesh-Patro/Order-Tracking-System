@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=snup;encrypt=true;trustServerCertificate=true
+    username: sa
+    password: Imaginnovate@123
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: false  # Set to true only for debugging
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+        format_sql: true
